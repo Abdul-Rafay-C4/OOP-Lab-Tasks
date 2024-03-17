@@ -1,57 +1,53 @@
 #include <iostream>
-#include <vector>
+#include <list>
 #include <string>
+
 using namespace std;
+class To_do_list
+{
+private:
+    string task;
+    list<To_do_list> sub_tasks;
 
-class Task {
 public:
-    string description;
-    bool completed;
-    Task(string desc) : description(desc), completed(false) {}
-};
+    To_do_list(const string& t) : task(t) {}
 
-class TaskManager {
-    vector<Task*> tasks;
-public:
-    void addTask(const string &desc) { tasks.push_back(new Task(desc)); }
-    
-    void displayTasks() {
-        cout << "\nTasks:" << endl;
-        for(size_t i = 0; i < tasks.size(); ++i) {
-            if(!tasks[i]->completed) {
-                cout << i + 1 << ". ";
-            }
-            else if(tasks[i]->completed) {
-                cout << "\n[DONE] ";
-            }
-            cout << tasks[i]->description << endl;
+    void add_sub_task(const string& subTask)
+    {
+        sub_tasks.push_back(To_do_list(subTask));
+    }
+
+    void display(int level = 0) const
+    {
+        for(int i = 0; i < level; ++i)
+        {
+           cout << "    ";
+        }
+        cout << "- " << task << endl;
+        for(const auto& subTask : sub_tasks)
+        {
+            subTask.display(level + 1);
         }
     }
-    
-    void markTaskCompleted(size_t index) {
-        if(index >= 0 && index < tasks.size()) {
-            tasks[index]->completed = true;
-            cout << "\nTask marked as completed: " << tasks[index]->description << endl;
-        }
-        else {
-            cout << "\nInvalid task index." << endl;
-        }
-    }
-    
-    ~TaskManager() {
-        for(Task *task : tasks) {
-            delete task;
-        }
+    auto get_sub_tasks()
+    {
+        return sub_tasks.begin();
     }
 };
 
-int main() {
-    TaskManager manager;
-    manager.addTask("Complete Project A");
-    manager.addTask("Prepare for Meeting");
-    manager.displayTasks();
-    manager.markTaskCompleted(1);
-    manager.displayTasks();
+int main()
+{
+    To_do_list to_do_list("Main Task");
+    to_do_list.add_sub_task("Subtask 1");
+    to_do_list.add_sub_task("Subtask 2");
+    to_do_list.add_sub_task("Subtask 3");
+
+    auto sub_task2 = to_do_list.get_sub_tasks();
+    advance(sub_task2, 1);
+    sub_task2 -> add_sub_task("Subtask 2.1");
     
+
+    to_do_list.display();
+
     return 0;
 }
