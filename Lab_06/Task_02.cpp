@@ -29,45 +29,99 @@ public:
   }
 };
 
-class Library {
+class Library
+{
 private:
   vector<Book> books;
 
 public:
   // Method to add a book to the library
-  void addBook(const Book& book) {
+  void addBook(const Book& book)
+  {
     books.push_back(book);
     cout << "Book added successfully!\n";
   }
 
   // Method to remove a book from the library by title (using std::find)
-  bool removeBook(const string& title) {
+  bool removeBook(const string& title)
+  {
     auto it = find(books.begin(), books.end(), Book(title, "", 0)); // Search by title only
-    if (it != books.end()) {
+    if(it != books.end())
+    {
       books.erase(it);
       cout << "Book removed successfully!\n";
       return true;
-    } else {
+    }
+    else
+    {
       cout << "Book not found!\n";
       return false;
     }
   }
 
   // Method to list all books in the library
-  void listBooks() const {
-    if (books.empty()) {
+  void listBooks() const
+  {
+    if(books.empty())
+    {
       cout << "Library is empty.\n";
       return;
     }
     cout << "Books in the library:\n";
-    for (const auto& book : books) {
+    for(const auto& book : books)
+    {
       book.display();
     }
   }
 };
 
-
 int main() 
 {
+  Library library;
+  while (true) {
+    cout << "\nWelcome to the Book Management System\n";
+    cout << "1. Add a book\n";
+    cout << "2. Remove a book\n";
+    cout << "3. List all books\n";
+    cout << "4. Exit\n";
+    cout << "Enter your choice: ";
 
+    int choice;
+    cin >> choice;
+    cin.ignore(); // Clear the input buffer
+
+    switch (choice) {
+      case 1: {
+        string title, author;
+        int year;
+        cout << "Enter title: ";
+        getline(cin, title);
+        cout << "Enter author: ";
+        getline(cin, author);
+        cout << "Enter year of publication: ";
+        cin >> year;
+        cin.ignore(); // Clear the input buffer
+        Book newBook(title, author, year);
+        library.addBook(newBook);
+        break;
+      }
+      case 2: {
+        string title;
+        cout << "Enter title of the book to remove: ";
+        getline(cin, title);
+        library.removeBook(title);
+        break;
+      }
+      case 3:
+        library.listBooks();
+        break;
+      case 4:
+        cout << "Exiting...\n";
+        return 0;
+      default:
+        cout << "Invalid choice. Please enter a number from 1 to 4.\n";
+    }
+  }
+
+  return 0;
 }
