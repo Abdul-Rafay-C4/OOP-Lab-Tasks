@@ -27,6 +27,12 @@ public:
   {
     cout << get_info() << endl;
   }
+
+  // Overloading operator== to compare Book objects based on their titles
+  bool operator==(const Book& other) const
+  {
+    return this->title == other.title;
+  }
 };
 
 class Library
