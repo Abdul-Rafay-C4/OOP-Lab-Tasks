@@ -16,7 +16,7 @@ public:
       : title(_title), author(_author), year(_year) {}
 
   // Getters (combined into a single function)
-  const string& getInfo() const
+  const string& get_info() const
   {
     static string info; // Static variable to store info string
     info = "Title: " + title + ", Author: " + author + ", Year: " + to_string(year);
@@ -25,7 +25,7 @@ public:
 
   void display() const 
   {
-    cout << getInfo() << endl;
+    cout << get_info() << endl;
   }
 };
 
@@ -36,14 +36,14 @@ private:
 
 public:
   // Method to add a book to the library
-  void addBook(const Book& book)
+  void add_book(const Book& book)
   {
     books.push_back(book);
     cout << "Book added successfully!\n";
   }
 
   // Method to remove a book from the library by title (using std::find)
-  bool removeBook(const string& title)
+  bool remove_book(const string& title)
   {
     auto it = find(books.begin(), books.end(), Book(title, "", 0)); // Search by title only
     if(it != books.end())
@@ -60,7 +60,7 @@ public:
   }
 
   // Method to list all books in the library
-  void listBooks() const
+  void list_books() const
   {
     if(books.empty())
     {
@@ -102,18 +102,18 @@ int main()
         cin >> year;
         cin.ignore(); // Clear the input buffer
         Book newBook(title, author, year);
-        library.addBook(newBook);
+        library.add_book(newBook);
         break;
       }
       case 2: {
         string title;
         cout << "Enter title of the book to remove: ";
         getline(cin, title);
-        library.removeBook(title);
+        library.remove_book(title);
         break;
       }
       case 3:
-        library.listBooks();
+        library.list_books();
         break;
       case 4:
         cout << "Exiting...\n";
