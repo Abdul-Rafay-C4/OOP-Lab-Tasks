@@ -685,7 +685,18 @@ void registerStudent(vector<Student*>& students)
     cout << "Enter student email: ";
     getline(cin, email);
     students.push_back(new Student(studentID, name, email));
-    cout << "Student registered successfully." << endl;
+    // Append registration information to the file
+    ofstream file("data.txt", ios::app); // Open file in append mode
+    if(file.is_open())
+    {
+        file << "Student: " << studentID << "," << name << "," << email << endl;
+        file.close();
+        cout << "Student registered successfully." << endl;
+    }
+    else
+    {
+        cout << "Unable to open file." << endl;
+    }
 }
 
 // Function to register a new teacher
@@ -699,7 +710,18 @@ void registerTeacher(vector<Teacher*>& teachers)
     cout << "Enter teacher email: ";
     getline(cin, email);
     teachers.push_back(new Teacher(teacherID, name, email));
-    cout << "Teacher registered successfully." << endl;
+    // Append registration information to the file
+    ofstream file("data.txt", ios::app); // Open file in append mode
+    if(file.is_open())
+    {
+        file << "Teacher: " << teacherID << "," << name << "," << email << endl;
+        file.close();
+        cout << "Teacher registered successfully." << endl;
+    }
+    else
+    {
+        cout << "Unable to open file." << endl;
+    }
 }
 
 // Function to register a new course
@@ -715,5 +737,16 @@ void registerCourse(vector<Course*>& courses)
     cin >> maxCapacity;
     cin.ignore(); // Clear the input buffer
     courses.push_back(new Course(courseCode, courseName, maxCapacity));
-    cout << "Course registered successfully." << endl;
+    // Append registration information to the file
+    ofstream file("data.txt", ios::app); // Open file in append mode
+    if(file.is_open())
+    {
+        file << "Course: " << courseCode << "," << courseName << "," << maxCapacity << endl;
+        file.close();
+        cout << "Course registered successfully." << endl;
+    }
+    else
+    {
+        cout << "Unable to open file." << endl;
+    }
 }
