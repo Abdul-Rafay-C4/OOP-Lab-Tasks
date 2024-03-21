@@ -22,6 +22,7 @@ class Student
         void enrollCourse(Course*course);
         void dropCourse(Course* course);
         void viewCourses();
+        string getStudentID() { return studentID; }
         friend class Course;
 };
 
@@ -85,7 +86,134 @@ void loadData(vector<Student*>& students, vector<Teacher*>& teachers, vector<Cou
 void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers, const vector<Course*>& courses);
 int main()
 {
+    vector<Student*> students;
+    vector<Teacher*> teachers;
+    vector<Course*> courses;
 
+    // Load data from file
+    loadData(students, teachers, courses);
+
+    int choice;
+    while(true)
+    {
+        cout << "\nUniversity Management System" << endl;
+        cout << "1. Proceed as Student" << endl;
+        cout << "2. Proceed as Teacher" << endl;
+        cout << "3. Proceed as Course" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore(); // Clear the input buffer
+
+        switch(choice)
+        {
+            case 1:
+            {
+                // Proceed as Student
+                cout << "\nStudent Functionality Menu:" << endl;
+                cout << "1. Enroll in Course" << endl;
+                cout << "2. Drop Course" << endl;
+                cout << "3. View Enrolled Courses" << endl;
+                cout << "Enter your choice: ";
+                int studentChoice;
+                cin >> studentChoice;
+                cin.ignore(); // Clear the input buffer
+
+                string studentID, courseCode;
+                switch(studentChoice)
+                {
+                    case 1:
+                    {
+                        cout << "Enter student ID: ";
+                        getline(cin, studentID);
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        Student* student = nullptr;
+                        Course* course = nullptr;
+                        for(auto s : students)
+                        {
+                            if(s -> getStudentID() == studentID)
+                            {
+                                student = s;
+                                break;
+                            }
+                        }
+                        for(auto c : courses)
+                        {
+                            if(c -> getCourseCode() == courseCode)
+                            {
+                                course = c;
+                                break;
+                            }
+                        }
+                        if(student && course)
+                        {
+                            student -> enrollCourse(course);
+                        }
+                        else
+                        {
+                            cout << "Student or course not found." << endl;
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        cout << "Enter student ID: ";
+                        getline(cin, studentID);
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        Student* student = nullptr;
+                        Course* course = nullptr;
+                        for(auto s : students)
+                        {
+                            if(s -> getStudentID() == studentID)
+                            {
+                                student = s;
+                                break;
+                            }
+                        }
+                        for(auto c : courses)
+                        {
+                            if(c -> getCourseCode() == courseCode)
+                            {
+                                course = c;
+                                break;
+                            }
+                        }
+                        if(student && course)
+                        {
+                            student -> dropCourse(course);
+                        }
+                        else
+                        {
+                            cout << "Student or course not found." << endl;
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        cout << "Enter student ID: ";
+                        getline(cin, studentID);
+                        for(auto student : students)
+                        {
+                            if(student -> getStudentID() == studentID)
+                            {
+                                student -> viewCourses();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                    {
+                        cout << "Invalid choice. Please enter a number between 1 and 3." << endl;
+                    }
+                }
+                break;
+            }
+            //case 2 here
+        }
+    }
 }
 
 //Studnet Class Methods
@@ -207,7 +335,7 @@ void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers
     {
         for(auto student : students)
         {
-            file << "Student: " << student -> getStudentID() << "," << student -> name << "," << student -> email << endl;
+            file << "Student: " << student -> studentID << "," << student -> name << "," << student -> email << endl;
         }
         for(auto teacher : teachers)
         {
