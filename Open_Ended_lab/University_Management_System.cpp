@@ -257,7 +257,90 @@ int main()
                 }
                 break;
             }
-            //case 2 for teacher as i did for student make it user friendly
+           
+             case 2: {
+                // Proceed as Teacher
+                cout << "\nTeacher Functionality Menu:" << endl;
+                cout << "1. Assign Course" << endl;
+                cout << "2. Remove Course" << endl;
+                cout << "3. View Courses Taught" << endl;
+                cout << "Enter your choice: ";
+                int teacherChoice;
+                cin >> teacherChoice;
+                cin.ignore(); // Clear the input buffer
+
+                string teacherID, courseCode;
+                switch (teacherChoice) {
+                    case 1: {
+                        cout << "Enter teacher ID: ";
+                        getline(cin, teacherID);
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        Teacher* teacher = nullptr;
+                        Course* course = nullptr;
+                        for (auto t : teachers) {
+                            if (t->getTeacherID() == teacherID) {
+                                teacher = t;
+                                break;
+                            }
+                        }
+                        for (auto c : courses) {
+                            if (c->getCourseCode() == courseCode) {
+                                course = c;
+                                break;
+                            }
+                        }
+                        if (teacher && course) {
+                            teacher->assignCourse(course);
+                        } else {
+                            cout << "Teacher or course not found." << endl;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        cout << "Enter teacher ID: ";
+                        getline(cin, teacherID);
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        Teacher* teacher = nullptr;
+                        Course* course = nullptr;
+                        for (auto t : teachers) {
+                            if (t->getTeacherID() == teacherID) {
+                                teacher = t;
+                                break;
+                            }
+                        }
+                        for (auto c : courses) {
+                            if (c->getCourseCode() == courseCode) {
+                                course = c;
+                                break;
+                            }
+                        }
+                        if (teacher && course) {
+                            teacher->removeCourse(course);
+                        } else {
+                            cout << "Teacher or course not found." << endl;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        cout << "Enter teacher ID: ";
+                        getline(cin, teacherID);
+                        for (auto teacher : teachers) {
+                            if (teacher->getTeacherID() == teacherID) {
+                                teacher->viewCourses();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    default: {
+                        cout << "Invalid choice. Please enter a number between 1 and 3." << endl;
+                    }
+                }
+                break;
+            }
+
             case 3:
             {
                 // Proceed as Course
@@ -362,7 +445,32 @@ int main()
                 }
                 break;
             }
-            //case 4 here (save data and cleanup dynamic memory)
+            
+                        case 4: 
+            {
+                // Exit the program
+                // Save data to file before exiting
+                saveData(students, teachers, courses);
+                cout << "Exiting program." << endl;
+                // Cleanup dynamic memory
+                for(auto student : students)
+                { 
+                    delete student;
+                }
+                for(auto teacher : teachers)
+                {
+                    delete teacher;
+                }
+                for(auto course : courses)
+                {
+                    delete course;
+                }
+                return 0;
+            }
+            default: 
+            {
+                cout << "Invalid choice. Please enter a number between 1 and 4." << endl;
+            }
         }
     }
     return 0;
