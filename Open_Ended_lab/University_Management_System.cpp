@@ -283,7 +283,7 @@ int main()
                         Student* student = nullptr;
                         for(auto c : courses)
                         {
-                            if(c->get("courseCode") == courseCode)
+                            if(c -> get("courseCode") == courseCode)
                             {
                                 course = c;
                                 break;
@@ -291,7 +291,7 @@ int main()
                         }
                         for(auto s : students)
                         {
-                            if(s->get("studentID") == studentID)
+                            if(s -> get("studentID") == studentID)
                             {
                                 student = s;
                                 break;
@@ -307,44 +307,56 @@ int main()
                         }
                         break;
                     }
-                    case 2: {
+                    case 2:
+                    {
                         cout << "Enter course code: ";
                         getline(cin, courseCode);
                         cout << "Enter student ID: ";
                         getline(cin, studentID);
                         Course* course = nullptr;
                         Student* student = nullptr;
-                        for (auto c : courses) {
-                            if (c->get("courseCode") == courseCode) {
+                        for(auto c : courses)
+                        {
+                            if(c -> get("courseCode") == courseCode)
+                            {
                                 course = c;
                                 break;
                             }
                         }
-                        for (auto s : students) {
-                            if (s->get("studentID") == studentID) {
+                        for(auto s : students)
+                        {
+                            if(s -> get("studentID") == studentID)
+                            {
                                 student = s;
                                 break;
                             }
                         }
-                        if (course && student) {
-                            course->removeStudent(student);
-                        } else {
+                        if(course && student)
+                        {
+                            course -> removeStudent(student);
+                        }
+                        else
+                        {
                             cout << "Course or student not found." << endl;
                         }
                         break;
                     }
-                    case 3: {
+                    case 3:
+                    {
                         cout << "Enter course code: ";
                         getline(cin, courseCode);
-                        for (auto c : courses) {
-                            if (c->get("courseCode") == courseCode) {
-                                c->viewStudents();
+                        for(auto c : courses)
+                        {
+                            if(c -> get("courseCode") == courseCode)
+                            {
+                                c -> viewStudents();
                                 break;
                             }
                         }
                         break;
                     }
-                    default: {
+                    default:
+                    {
                         cout << "Invalid choice. Please enter a number between 1 and 3." << endl;
                     }
                 }
