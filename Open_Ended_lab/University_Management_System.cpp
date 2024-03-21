@@ -202,5 +202,26 @@ void loadData(vector<Student*>& students, vector<Teacher*>& teachers, vector<Cou
 }
 void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers, const vector<Course*>& courses)
 {
-
+    ofstream file("data.txt");
+    if(file.is_open())
+    {
+        for(auto student : students)
+        {
+            file << "Student: " << student -> getStudentID() << "," << student -> name << "," << student -> email << endl;
+        }
+        for(auto teacher : teachers)
+        {
+            file << "Teacher: " << teacher -> teacherID << "," << teacher -> name << "," << teacher -> email << endl;
+        }
+        for(auto course : courses)
+        {
+            file << "Course: " << course -> courseCode << "," << course -> courseName << "," << course -> maxCapacity << endl;
+        }
+        file.close();
+        cout << "Data saved successfully." << endl;
+    }
+    else
+    {
+        cout << "Unable to open file." << endl;
+    } 
 }
