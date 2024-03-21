@@ -81,7 +81,8 @@ class Course
         friend class Student;
         friend class Teacher; 
 };
-
+void loadData(vector<Student*>& students, vector<Teacher*>& teachers, vector<Course*>& courses);
+void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers, const vector<Course*>& courses);
 int main()
 {
 
@@ -156,4 +157,50 @@ void Teacher::viewCourses()
     {
         cout << course -> courseName << endl;
     }
+}
+
+void loadData(vector<Student*>& students, vector<Teacher*>& teachers, vector<Course*>& courses)
+{
+    ifstream file("data.txt");
+    if(file.is_open())
+    {
+        string line;
+        while(getline(file, line))
+        {
+            string type;
+            istringstream iss(line);
+            iss >> type;
+            if(type == "Student:")
+            {
+                string studentID, name, email;
+                char delim;
+                iss >> studentID >> delim >> name >> delim >> email;
+                students.push_back(new Student(studentID, name, email));
+            }
+            else if(type == "Teacher:")
+            {
+                string teacherID, name, email;
+                char delim;
+                iss >> teacherID >> delim >> name >> delim >> email;
+                teachers.push_back(new Teacher(teacherID, name, email));
+            }else if(type == "Course:")
+            {
+                string courseCode, courseName;
+                int maxCapacity;
+                char delim;
+                iss >> courseCode >> delim >> courseName >> delim >> maxCapacity;
+                courses.push_back(new Course(courseCode, courseName, maxCapacity));
+            }
+        }
+        file.close();
+        cout << "Data loaded successfully." << endl;
+    }
+    else
+    {
+        cout << "Unable to open file." << endl;
+    }
+}
+void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers, const vector<Course*>& courses)
+{
+
 }
