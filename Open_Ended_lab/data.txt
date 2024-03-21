@@ -5,6 +5,6 @@ Student: 022,Erha Riaz,erha@gmail.com
 Teacher: 01,Engr. M Waleed Khan,aleed@gmail.com
 Teacher: 02,Dr. Tamim Ahmad,tamim@gmail.com
 
-Course: CS,ISE,01
-Course: OOP,OOP,02
-Course: ENG,English Composition,03
+Course: CS,ISE,50
+Course: OOP,OOP,50
+Course: ENG,English Composition,50

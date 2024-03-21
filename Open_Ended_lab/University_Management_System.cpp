@@ -133,6 +133,9 @@ class Course
 void loadData(vector<Student*>& students, vector<Teacher*>& teachers, vector<Course*>& courses);
 void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers, const vector<Course*>& courses);
 string trim(const string& str);
+void registerStudent(vector<Student*>& students);
+void registerTeacher(vector<Teacher*>& teachers);
+void registerCourse(vector<Course*>& courses);
 int main()
 {
     vector<Student*> students;
@@ -149,7 +152,10 @@ int main()
         cout << "1. Proceed as Student" << endl;
         cout << "2. Proceed as Teacher" << endl;
         cout << "3. Proceed as Course" << endl;
-        cout << "4. Exit" << endl;
+        cout << "4. Register Student" << endl;
+        cout << "5. Register Teacher" << endl;
+        cout << "6. Register Course" << endl;
+        cout << "7. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
         cin.ignore(); // Clear the input buffer
@@ -478,8 +484,19 @@ int main()
                 }
                 break;
             }
-            
-            case 4: 
+            case 4:
+                // Register a new student
+                registerStudent(students);
+                break;
+            case 5:
+                // Register a new teacher
+                registerTeacher(teachers);
+                break;
+            case 6:
+                // Register a new course
+                registerCourse(courses);
+                break;
+            case 7: 
             {
                 // Exit the program
                 // Save data to file before exiting
@@ -656,4 +673,47 @@ string trim(const string& str)
         return "";
     }
     return str.substr(start, end - start + 1);
+}
+// Function to register a new student
+void registerStudent(vector<Student*>& students)
+{
+    string studentID, name, email;
+    cout << "Enter student ID: ";
+    getline(cin, studentID);
+    cout << "Enter student name: ";
+    getline(cin, name);
+    cout << "Enter student email: ";
+    getline(cin, email);
+    students.push_back(new Student(studentID, name, email));
+    cout << "Student registered successfully." << endl;
+}
+
+// Function to register a new teacher
+void registerTeacher(vector<Teacher*>& teachers)
+{
+    string teacherID, name, email;
+    cout << "Enter teacher ID: ";
+    getline(cin, teacherID);
+    cout << "Enter teacher name: ";
+    getline(cin, name);
+    cout << "Enter teacher email: ";
+    getline(cin, email);
+    teachers.push_back(new Teacher(teacherID, name, email));
+    cout << "Teacher registered successfully." << endl;
+}
+
+// Function to register a new course
+void registerCourse(vector<Course*>& courses)
+{
+    string courseCode, courseName;
+    int maxCapacity;
+    cout << "Enter course code: ";
+    getline(cin, courseCode);
+    cout << "Enter course name: ";
+    getline(cin, courseName);
+    cout << "Enter maximum capacity for the course: ";
+    cin >> maxCapacity;
+    cin.ignore(); // Clear the input buffer
+    courses.push_back(new Course(courseCode, courseName, maxCapacity));
+    cout << "Course registered successfully." << endl;
 }
