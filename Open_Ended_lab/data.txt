@@ -1,8 +1,9 @@
-Student: 004,Abdul,afay,rafay@gmail.com,,,
-Student: 022,Erha,iaz,erha@gmail.com,,,
-Student: 006,Jibran,dumbj@gmail.com,,
-Teacher: 01,Engr.,Waleed,han,aleed@gmail.com,,
-Teacher: 02,Dr.,amim,hmad,tamim@gmail.com,,
-Course: CS,ISE,50,,-35656320,,1751116864
-Course: OOP,OOP,50,,-35656320,,1751116864
-Course: ENG,English,omposition,50,-35656320,,1751116864
+Student: 004,Abdul,afay,rafay@gmail.com,,,,,
+Student: 022,Erha,iaz,erha@gmail.com,,,,,
+Student: 006,Jibran,dumbj@gmail.com,,,,
+Teacher: 01,Engr.,Waleed,han,aleed@gmail.com,,,,
+Teacher: 02,Dr.,amim,hmad,tamim@gmail.com,,,,
+Course: CS,ISE,50,
+Course: OOP,OOP,50,
+Course: ENG,English,50
+Course: Math01,Math,50
