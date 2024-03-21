@@ -4,6 +4,8 @@
 #include <string>
 #include <algorithm>
 #include <sstream>
+#include <cctype>
+#include <locale>
 
 using namespace std;
 
@@ -130,6 +132,7 @@ class Course
 };
 void loadData(vector<Student*>& students, vector<Teacher*>& teachers, vector<Course*>& courses);
 void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers, const vector<Course*>& courses);
+string trim(const string& str);
 int main()
 {
     vector<Student*> students;
@@ -174,8 +177,17 @@ int main()
                         getline(cin, studentID);
                         cout << "Enter course code: ";
                         getline(cin, courseCode);
+
+                        // Trim leading and trailing whitespace
+                        studentID = trim(studentID);
+                        courseCode = trim(courseCode);
+
+                        cout << "Entered student ID: " << studentID << endl;
+                        cout << "Entered course code: " << courseCode << endl;
+
                         Student* student = nullptr;
                         Course* course = nullptr;
+
                         for(auto s : students)
                         {
                             if(s -> get("studentID") == studentID)
@@ -633,4 +645,15 @@ void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers
     {
         cout << "Unable to open file." << endl;
     } 
+}
+
+string trim(const string& str)
+{
+    size_t start = str.find_first_not_of(" \t\n\r\f\v");
+    size_t end = str.find_last_not_of(" \t\n\r\f\v");
+    if(start == string::npos || end == string::npos)
+    {
+        return "";
+    }
+    return str.substr(start, end - start + 1);
 }
