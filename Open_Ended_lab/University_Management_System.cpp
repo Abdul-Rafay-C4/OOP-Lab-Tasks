@@ -257,9 +257,103 @@ int main()
                 }
                 break;
             }
-            //case 2 here
+            //case 2 for teacher as i did for student make it user friendly
+            case 3:
+            {
+                // Proceed as Course
+                cout << "\nCourse Functionality Menu:" << endl;
+                cout << "1. Add Student to Course" << endl;
+                cout << "2. Remove Student from Course" << endl;
+                cout << "3. View Enrolled Students" << endl;
+                cout << "Enter your choice: ";
+                int courseChoice;
+                cin >> courseChoice;
+                cin.ignore(); // Clear the input buffer
+
+                string courseCode, studentID;
+                switch(courseChoice)
+                {
+                    case 1:
+                    {
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        cout << "Enter student ID: ";
+                        getline(cin, studentID);
+                        Course* course = nullptr;
+                        Student* student = nullptr;
+                        for(auto c : courses)
+                        {
+                            if(c->get("courseCode") == courseCode)
+                            {
+                                course = c;
+                                break;
+                            }
+                        }
+                        for(auto s : students)
+                        {
+                            if(s->get("studentID") == studentID)
+                            {
+                                student = s;
+                                break;
+                            }
+                        }
+                        if(course && student)
+                        {
+                            course->addStudent(student);
+                        }
+                        else
+                        {
+                            cout << "Course or student not found." << endl;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        cout << "Enter student ID: ";
+                        getline(cin, studentID);
+                        Course* course = nullptr;
+                        Student* student = nullptr;
+                        for (auto c : courses) {
+                            if (c->get("courseCode") == courseCode) {
+                                course = c;
+                                break;
+                            }
+                        }
+                        for (auto s : students) {
+                            if (s->get("studentID") == studentID) {
+                                student = s;
+                                break;
+                            }
+                        }
+                        if (course && student) {
+                            course->removeStudent(student);
+                        } else {
+                            cout << "Course or student not found." << endl;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        cout << "Enter course code: ";
+                        getline(cin, courseCode);
+                        for (auto c : courses) {
+                            if (c->get("courseCode") == courseCode) {
+                                c->viewStudents();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    default: {
+                        cout << "Invalid choice. Please enter a number between 1 and 3." << endl;
+                    }
+                }
+                break;
+            }
+            //case 4 here (save data and cleanup dynamic memory)
         }
     }
+    return 0;
 }
 
 //Studnet Class Methods
