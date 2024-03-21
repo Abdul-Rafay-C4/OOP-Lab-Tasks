@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -40,7 +42,34 @@ public:
 
 class Course
 {
+    private:
+    string courseCode;
+    string courseName;
+    Teacher* teacher;
+    vector<Student*> studentsEnrolled;
+    int maxCapacity;
 
+public:
+    Course(string courseCode, string courseName, int maxCapacity) : courseCode(courseCode), courseName(courseName), teacher(nullptr), maxCapacity(maxCapacity) {}
+
+    void addStudent(Student* student) {
+    studentsEnrolled.push_back(student);
+}
+
+    void removeStudent(Student* student) {
+    auto it = find(studentsEnrolled.begin(), studentsEnrolled.end(), student);
+    if (it != studentsEnrolled.end()) {
+        studentsEnrolled.erase(it);
+    }
+}
+
+    void viewStudents() {
+    cout << "Students Enrolled in " << courseName << ":" << endl;
+    for (auto student : studentsEnrolled) {
+        cout << student->getStudentID() << " - " << student->name << endl;
+    }
+}
+    string getCourseCode() const { return courseCode; }
 };
 
 int main()
