@@ -22,7 +22,22 @@ class Student
         void enrollCourse(Course*course);
         void dropCourse(Course* course);
         void viewCourses();
-        string getStudentID() { return studentID; }
+        string get(string input)
+        {
+            if(input == "studentID")
+            {
+                return studentID;
+            }
+            else if(input == "name")
+            {
+                return name;
+            }
+            else if(input == "email")
+            {
+                return email;
+            }
+            return 0;
+        }
         friend class Course;
 };
 
@@ -40,6 +55,22 @@ class Teacher
         void assignCourse(Course* course);
         void removeCourse(Course* course);
         void viewCourses();
+        string get(string input)
+        {
+            if(input == "teacherID")
+            {
+                return teacherID;
+            }
+            else if(input == "name")
+            {
+                return name;
+            }
+            else if(input == "email")
+            {
+                return email;
+            }
+            return 0;
+        }
         friend class Course;
 };
 
@@ -77,7 +108,22 @@ class Course
                 cout << student -> studentID << " - " << student -> name << endl;
             }
         }
-        string getCourseCode() const { return courseCode; }
+        string get(string input)
+        {
+            if(input == "courseCode")
+            {
+                return courseCode;
+            }
+            else if(input == "courseName")
+            {
+                return courseName;
+            }
+            else if(input == "maxCapacity")
+            {
+                return to_string(maxCapacity);
+            }
+            return 0;
+        }
 
         friend class Student;
         friend class Teacher; 
@@ -132,7 +178,7 @@ int main()
                         Course* course = nullptr;
                         for(auto s : students)
                         {
-                            if(s -> getStudentID() == studentID)
+                            if(s -> get("studentID") == studentID)
                             {
                                 student = s;
                                 break;
@@ -140,7 +186,7 @@ int main()
                         }
                         for(auto c : courses)
                         {
-                            if(c -> getCourseCode() == courseCode)
+                            if(c -> get("courseCode") == courseCode)
                             {
                                 course = c;
                                 break;
@@ -166,7 +212,7 @@ int main()
                         Course* course = nullptr;
                         for(auto s : students)
                         {
-                            if(s -> getStudentID() == studentID)
+                            if(s -> get("studentID") == studentID)
                             {
                                 student = s;
                                 break;
@@ -174,7 +220,7 @@ int main()
                         }
                         for(auto c : courses)
                         {
-                            if(c -> getCourseCode() == courseCode)
+                            if(c -> get("courseCode") == courseCode)
                             {
                                 course = c;
                                 break;
@@ -196,7 +242,7 @@ int main()
                         getline(cin, studentID);
                         for(auto student : students)
                         {
-                            if(student -> getStudentID() == studentID)
+                            if(student -> get("studentID") == studentID)
                             {
                                 student -> viewCourses();
                                 break;
@@ -335,15 +381,15 @@ void saveData(const vector<Student*>& students, const vector<Teacher*>& teachers
     {
         for(auto student : students)
         {
-            file << "Student: " << student -> studentID << "," << student -> name << "," << student -> email << endl;
+            file << "Student: " << student -> get("studentID") << "," << student -> get("name") << "," << student -> get("email") << endl;
         }
         for(auto teacher : teachers)
         {
-            file << "Teacher: " << teacher -> teacherID << "," << teacher -> name << "," << teacher -> email << endl;
+            file << "Teacher: " << teacher -> get("teacherID") << "," << teacher -> get("name") << "," << teacher -> get("email") << endl;
         }
         for(auto course : courses)
         {
-            file << "Course: " << course -> courseCode << "," << course -> courseName << "," << course -> maxCapacity << endl;
+            file << "Course: " << course -> get("courseCode") << "," << course -> get("courseName") << "," << course -> get("maxCapacity") << endl;
         }
         file.close();
         cout << "Data saved successfully." << endl;
