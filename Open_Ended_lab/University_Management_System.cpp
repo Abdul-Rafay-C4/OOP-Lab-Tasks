@@ -57,6 +57,7 @@ class Student
             cout << course -> courseName << endl;
         }
     }
+    friend class Course;
 };
 
 class Teacher
@@ -100,6 +101,7 @@ class Teacher
             cout << course -> courseName << endl;
         }
     }
+    friend class Course;
 };
 
 class Course
@@ -137,6 +139,9 @@ class Course
             }
         }
         string getCourseCode() const { return courseCode; }
+
+        friend class Student;
+        friend class Teacher; 
 };
 
 int main()
