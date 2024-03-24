@@ -1,53 +1,25 @@
 #include <iostream>
-#include <list>
-#include <string>
-
+#include <map>
 using namespace std;
-class To_do_list
-{
-private:
-    string task;
-    list<To_do_list> sub_tasks;
 
-public:
-    To_do_list(const string& t) : task(t) {}
+int main() {
+    // Creating a map of string keys and integer values
+    map<string, int> myMap;
 
-    void add_sub_task(const string& subTask)
-    {
-        sub_tasks.push_back(To_do_list(subTask));
+    // Inserting elements into the map
+    myMap["apple"] = 5;
+    myMap["banana"] = 3;
+    myMap["orange"] = 7;
+
+    // Accessing elements using keys
+    cout << "Number of apples: " << myMap["apple"] << endl;
+
+    // Iterating over the map
+    cout << "Map contents:";
+    for (auto& pair : myMap) {
+        cout << " (" << pair.first << ": " << pair.second << ")";
     }
-
-    void display(int level = 0) const
-    {
-        for(int i = 0; i < level; ++i)
-        {
-           cout << "    ";
-        }
-        cout << "- " << task << endl;
-        for(const auto& subTask : sub_tasks)
-        {
-            subTask.display(level + 1);
-        }
-    }
-    auto get_sub_tasks()
-    {
-        return sub_tasks.begin();
-    }
-};
-
-int main()
-{
-    To_do_list to_do_list("Main Task");
-    to_do_list.add_sub_task("Subtask 1");
-    to_do_list.add_sub_task("Subtask 2");
-    to_do_list.add_sub_task("Subtask 3");
-
-    auto sub_task2 = to_do_list.get_sub_tasks();
-    advance(sub_task2, 1);
-    sub_task2 -> add_sub_task("Subtask 2.1");
-    
-
-    to_do_list.display();
+    cout << endl;
 
     return 0;
 }
